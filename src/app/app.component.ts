@@ -4,7 +4,7 @@ import { TestCheckboxComponent } from "./components/test-checkbox/test-checkbox.
 import { TestInputComponent } from "./components/test-input/test-input.component";
 import { TestNumberComponent } from "./components/test-number/test-number.component";
 import { TestSelectComponent } from "./components/test-select/test-select.component";
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormControl, FormArray } from '@angular/forms';
 import { FormConfigService } from './services/form-config.service';
 import { CommonModule } from '@angular/common';
 
@@ -35,15 +35,45 @@ export class AppComponent implements OnInit {
   public formConfig?: any[];
   
   public ngOnInit(): void {
-    this.formConfig = this.formConfigService.getFormConfig();
+    this.formConfig = this.formConfigService.getFormConfig(); //TODO: RxJS Obs
     this.buildForm();
   }
 
   public buildForm(): void {
     this.formConfig!.forEach(field => {
       const validators = field.required ? [Validators.required] : [];
-      this.form.addControl(field.label, this.fb.control('', validators));
+      if (field.type === 'checkbox') {
+        this.form.addControl(field.label, this.fb.array([]));
+      } else {
+        this.form.addControl(field.label, this.fb.control('', validators));
+      };
     });
+  }
+
+  public getFormControl(controlName: string): FormControl | null {
+    const control = this.form.get(controlName);
+    return control instanceof FormControl ? control : null; // TODO: Поймать ошибку на null
+  }
+
+  public getFormArray(controlName: string): FormArray {
+    return this.form.get(controlName) as FormArray;
+  }
+
+  public get checkboxList(): FormArray {
+    return this.form.get('checkbox') as FormArray;
+  }
+
+
+  public onCheckboxChange(option: string, event: Event): void {
+    const checkbox = event.target as HTMLInputElement;
+    if (checkbox.checked) {
+      this.checkboxList.push(new FormControl(option));
+    } else {
+      const index = this.checkboxList.controls.findIndex(control => control.value === option);
+      if (index !== -1) {
+        this.checkboxList.removeAt(index);
+      }
+    }
   }
 
   public onSubmit(): void {

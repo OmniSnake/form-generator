@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { FormArray, ReactiveFormsModule, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-test-checkbox',
@@ -14,5 +14,23 @@ export class TestCheckboxComponent {
   @Input() description?: string;
   @Input() required?: boolean = false;
   @Input() options: string[] = [];
-  @Input() control!: FormControl;
+  @Input() control!: FormArray;
+
+// Метод для проверки, выбран ли конкретный вариант
+public isOptionSelected(option: string): boolean {
+  return this.control?.value.includes(option) ?? false;
+}
+
+// Метод для обработки изменений в чекбоксах
+public onCheckboxChange(option: string, event: Event): void {
+  const checkbox = event.target as HTMLInputElement;
+  if (checkbox.checked) {
+    this.control.push(new FormControl(option));
+  } else {
+    const index = this.control.controls.findIndex(control => control.value === option);
+    if (index !== -1) {
+      this.control.removeAt(index);
+    }
+  }
+}
 }

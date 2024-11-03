@@ -1,9 +1,30 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
   <ng-container *ngFor="let field of formConfig">
-    <app-test-input *ngIf="field.type === 'input'" [label]="field.label" [description]="field.description" [control]="form.get(field.label)"></app-test-input>
-    <app-test-select *ngIf="field.type === 'select'" [label]="field.label" [choices]="field.choices" [control]="form.get(field.label)" [activeOption]="field.activeOption"></app-test-select>
-    <app-test-number *ngIf="field.type === 'number'" [label]="field.label" [description]="field.description" [control]="form.get(field.label)"></app-test-number>
-    <app-test-checkbox *ngIf="field.type === 'checkbox'" [label]="field.label" [options]="field.options" [control]="form.get(field.label)"></app-test-checkbox>
+
+    <app-test-input *ngIf="field.type === 'input'" 
+      [label]="field.label"
+      [description]="field.description"
+      [control]="getFormControl(field.label)!"
+    ></app-test-input>
+
+    <app-test-select *ngIf="field.type === 'select'" 
+      [label]="field.label" 
+      [choices]="field.choices" 
+      [control]="getFormControl(field.label)!"
+    ></app-test-select>
+    
+    <app-test-number *ngIf="field.type === 'number'" 
+      [label]="field.label" 
+      [description]="field.description" 
+      [control]="getFormControl(field.label)!"
+    ></app-test-number>
+    
+    <app-test-checkbox *ngIf="field.type === 'checkbox'" 
+    [label]="field.label" 
+    [options]="field.options" 
+    [control]="getFormArray(field.label)">
+    ></app-test-checkbox>
+  
   </ng-container>
   <button type="submit" [disabled]="form.invalid">Отправить</button>
 </form>
