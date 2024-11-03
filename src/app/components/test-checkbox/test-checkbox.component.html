@@ -1,1 +1,5 @@
-<p>test-checkbox works!</p>
+<div class="form-check">
+    <input type="checkbox" [formControl]="control" class="form-check-input" id="checkbox" />
+    <label for="checkbox" class="form-check-label">{{ label }}</label>
+    <small *ngIf="description" class="form-text text-muted">{{ description }}</small>
+  </div>

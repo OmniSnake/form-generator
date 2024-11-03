@@ -1,1 +1,5 @@
-<p>test-input works!</p>
+<div class="form-group">
+    <label *ngIf="label">{{ label }}</label>
+    <input type="text" [formControl]="control" [placeholder]="placeholder" class="form-control" />
+    <small *ngIf="description" class="form-text text-muted">{{ description }}</small>
+  </div>

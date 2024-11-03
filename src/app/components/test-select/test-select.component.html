@@ -1,1 +1,7 @@
-<p>test-select works!</p>
+<div class="form-group">
+    <label *ngIf="label">{{ label }}</label>
+    <select [formControl]="control" class="form-select">
+      <option *ngFor="let choice of choices" [value]="choice">{{ choice }}</option>
+    </select>
+    <small *ngIf="description" class="form-text text-muted">{{ description }}</small>
+  </div>

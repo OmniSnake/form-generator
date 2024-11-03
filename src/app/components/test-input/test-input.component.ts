@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { Component, Input } from '@angular/core';
+import { ReactiveFormsModule, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-test-input',
@@ -10,4 +10,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 })
 export class TestInputComponent {
 
+    @Input() label: string = '';          
+    @Input() placeholder: string = '';
+    @Input() description?: string;    
+    @Input() required?: boolean = false;
+    @Input() control!: FormControl; 
+       
 }
