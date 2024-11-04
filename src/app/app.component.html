@@ -2,18 +2,18 @@
   <ng-container *ngFor="let field of formConfig">
 
     <div *ngIf="field.type === 'input'">
-      <ng-container *ngIf="field.addable; else singleInput">
+      <ng-container *ngIf="(field.addable && getFormControl(field.fieldName)); else singleInput">
         <app-test-input 
-          *ngFor="let control of getFormArray(field.label).controls; let i = index"
+          *ngFor="let control of getFormArray(field.fieldName).controls; let i = index"
           [label]="field.label + (i + 1)"
-          [control]="getFormControl(field.label)">
+          [control]="getFormControl(field.fieldName)!">
         </app-test-input>
-        <button type="button" (click)="addField(field.label)">Добавить поле</button>
+        <button type="button" (click)="addField(field.fieldName)">Добавить поле</button>
       </ng-container>
       <ng-template #singleInput>
         <app-test-input 
           [label]="field.label"
-          [control]="getFormControl(field.label)">
+          [control]="getFormControl(field.fieldName)!">
         </app-test-input>
       </ng-template>
     </div>
@@ -21,19 +21,19 @@
     <app-test-select *ngIf="field.type === 'select'" 
       [label]="field.label" 
       [choices]="field.choices" 
-      [control]="getFormControl(field.label)!"
+      [control]="getFormControl(field.fieldName)!"
     ></app-test-select>
     
     <app-test-number *ngIf="field.type === 'number'" 
       [label]="field.label" 
       [description]="field.description" 
-      [control]="getFormControl(field.label)!"
+      [control]="getFormControl(field.fieldName)!"
     ></app-test-number>
     
     <app-test-checkbox *ngIf="field.type === 'checkbox'" 
     [label]="field.label" 
     [options]="field.options" 
-    [control]="getFormArray(field.label)">
+    [control]="getFormArray(field.fieldName)">
     ></app-test-checkbox>
   
   </ng-container>
