@@ -1,11 +1,22 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
   <ng-container *ngFor="let field of formConfig">
 
-    <app-test-input *ngIf="field.type === 'input'" 
-      [label]="field.label"
-      [description]="field.description"
-      [control]="getFormControl(field.label)!"
-    ></app-test-input>
+    <div *ngIf="field.type === 'input'">
+      <ng-container *ngIf="field.addable; else singleInput">
+        <app-test-input 
+          *ngFor="let control of getFormArray(field.label).controls; let i = index"
+          [label]="field.label + (i + 1)"
+          [control]="getFormControl(field.label)">
+        </app-test-input>
+        <button type="button" (click)="addField(field.label)">Добавить поле</button>
+      </ng-container>
+      <ng-template #singleInput>
+        <app-test-input 
+          [label]="field.label"
+          [control]="getFormControl(field.label)">
+        </app-test-input>
+      </ng-template>
+    </div>
 
     <app-test-select *ngIf="field.type === 'select'" 
       [label]="field.label" 

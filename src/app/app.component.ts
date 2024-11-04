@@ -35,28 +35,41 @@ export class AppComponent implements OnInit {
   public formConfig?: any[];
   
   public ngOnInit(): void {
+    console.log('this.form', this.form);
     this.formConfig = this.formConfigService.getFormConfig(); //TODO: RxJS Obs
     this.buildForm();
   }
 
   public buildForm(): void {
-    this.formConfig!.forEach(field => {
-      const validators = field.required ? [Validators.required] : [];
+    this.formConfig!.forEach(field => {  
+      console.log('field: ', field);
       if (field.type === 'checkbox') {
         this.form.addControl(field.label, this.fb.array([]));
+      } else if (field.addable) {
+        this.form.addControl(field.label, this.fb.array([new FormControl('')]));
       } else {
-        this.form.addControl(field.label, this.fb.control('', validators));
-      };
+        this.form.addControl(field.label, new FormControl('', field.required ? Validators.required : []));
+      }
     });
   }
 
-  public getFormControl(controlName: string): FormControl | null {
+  public getFormControl(controlName: string): FormControl {
     const control = this.form.get(controlName);
-    return control instanceof FormControl ? control : null; // TODO: Поймать ошибку на null
+    console.log('getFormControl:', control);
+    if (!(control instanceof FormControl)) { throw new Error('control содержит null'); }
+    return control; // TODO: Поймать ошибку на null
   }
 
   public getFormArray(controlName: string): FormArray {
-    return this.form.get(controlName) as FormArray;
+    const control = this.form.get(controlName);
+    return control instanceof FormArray ? control : this.fb.array([]);
+  }
+
+  public addField(controlName: string): void {
+    const formArray = this.getFormArray(controlName);
+    if (formArray) {
+      formArray.push(new FormControl(''));
+    }
   }
 
   public get checkboxList(): FormArray {
