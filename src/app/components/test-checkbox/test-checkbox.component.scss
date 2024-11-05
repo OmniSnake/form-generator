@@ -1,6 +1,11 @@
 .form-check {
+    display: flex;
     margin-bottom: 15px;
-  
+    
+    .field-mark {
+      color: red;
+    }
+
     .form-check-input {
       margin-right: 10px;
     }

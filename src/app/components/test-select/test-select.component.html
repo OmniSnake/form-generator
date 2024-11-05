@@ -1,5 +1,6 @@
 <div class="form-group">
     <label *ngIf="label">{{ label }}</label>
+    <span *ngIf="required" class="field-mark">*</span>
     <select [formControl]="control" class="form-select">
       <option *ngFor="let choice of choices" [value]="choice">{{ choice }}</option>
     </select>

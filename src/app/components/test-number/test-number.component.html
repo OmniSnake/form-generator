@@ -1,5 +1,6 @@
 <div class="form-group">
     <label *ngIf="label">{{ label }}</label>
+    <span *ngIf="required" class="field-mark">*</span>
     <input type="number" [formControl]="control" [placeholder]="placeholder" class="form-control" />
     <small *ngIf="description" class="form-text text-muted">{{ description }}</small>
   </div>

@@ -1,5 +1,6 @@
 <div class="form-check">
   <label>{{ label }}</label>
+  <span *ngIf="required" class="field-mark">*</span>
   <div *ngFor="let option of options; let i = index">
     <input 
       type="checkbox" 

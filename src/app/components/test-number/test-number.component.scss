@@ -1,6 +1,11 @@
 .form-group {
     margin-bottom: 15px;
+    display: flex;
   
+    .field-mark {
+      color: red;
+    }
+
     .form-control {
       width: 100%;
       padding: 8px;

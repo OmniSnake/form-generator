@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { FormArray, ReactiveFormsModule, FormControl } from '@angular/forms';
 
 @Component({
@@ -8,6 +8,7 @@ import { FormArray, ReactiveFormsModule, FormControl } from '@angular/forms';
   imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './test-checkbox.component.html',
   styleUrls: ['./test-checkbox.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TestCheckboxComponent {
   @Input() label: string = '';

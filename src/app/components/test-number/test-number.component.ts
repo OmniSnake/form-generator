@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
@@ -8,6 +8,7 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
   imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './test-number.component.html',
   styleUrls: ['./test-number.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TestNumberComponent {
   @Input() label: string = '';

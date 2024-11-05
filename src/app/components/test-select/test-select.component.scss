@@ -1,6 +1,11 @@
 .form-group {
-    margin-bottom: 15px;
+  display: flex;
+  margin-bottom: 15px;
   
+    .field-mark {
+      color: red;
+    }
+
     .form-select {
       width: 100%;
       padding: 8px;

@@ -35,51 +35,58 @@ export class AppComponent implements OnInit {
   public formConfig?: any[];
   
   public ngOnInit(): void {
-    console.log('this.form', this.form);
-    console.log('this.form.controls', this.form.controls);
     this.formConfig = this.formConfigService.getFormConfig(); //TODO: RxJS Obs
     this.buildForm();
   }
 
   public buildForm(): void {
     this.formConfig!.forEach(field => {  
-      console.log('field: ', field);
-      console.log('field.addable: ', field.addable);
-
       if (field.type === 'checkbox') {
         this.form.addControl(field.fieldName, this.fb.array([]));
       } else if (field.addable) {
-        this.form.addControl(field.fieldName, this.fb.array([new FormControl('', field.required ? Validators.required : [])]));
+        this.form.addControl(field.fieldName, this.fb.array([new FormControl('')]));
       } else {
         this.form.addControl(field.fieldName, new FormControl('', field.required ? Validators.required : []));
       }
     });
-    console.log('buildForm this.form', this.form);
-    console.log('buildForm this.form.controls', this.form.controls);
   }
 
   public getFormControl(controlName: string): FormControl | null{
-    console.log('controlName:', controlName);
-    console.log('getFormControl this.form:', this.form);
     const control = this.form.get(controlName);
-    //const control: FormControl = this.form.controls[controlName];
-
-    console.log('getFormControl:', control);
-    //if (!(control instanceof FormControl)) { throw new Error('control содержит null'); }
-    return control instanceof FormControl ? control : null;
+    return control instanceof FormControl ? control as FormControl : null;
   }
 
-  public getFormArray(controlName: string): FormArray {
+  public getFormArray(controlName: string): FormArray | null{
     const control = this.form.get(controlName);
-    return control instanceof FormArray ? control : this.fb.array([]);
+  //  return control instanceof FormArray ? control : this.fb.array([]);
+    return control instanceof FormArray ? control : null;
   }
 
-  public addField(controlName: string): void {
+  public getFormControlFromArray(controlName: string, index: number): FormControl | null {
+    const formArray = this.getFormArray(controlName);
+    if (formArray && formArray.at(index) instanceof FormControl) {
+      return formArray.at(index) as FormControl;
+    }
+    return null;
+  }
+
+  public addField(controlName: string, maxLength: number): void {
     const formArray = this.getFormArray(controlName);
     if (formArray) {
-      formArray.push(new FormControl(''));
+      if (formArray.length < maxLength) {
+        formArray.push(new FormControl(''));
+      } else {
+        console.warn('Максимальное количество полей достигнуто');
+      }
     }
   }
+
+  public removeField(controlName: string, index: number): void {
+    const formArray = this.getFormArray(controlName);
+    if (formArray) {
+      formArray.removeAt(index);
+    };
+  };
 
   public get checkboxList(): FormArray {
     return this.form.get('checkbox') as FormArray;

@@ -1,8 +1,13 @@
 .form-group {
+    display: flex;
     margin-bottom: 15px;
   
     label {
       font-weight: bold;
+    }
+
+    .field-mark {
+      color: red;
     }
   
     .form-control {
@@ -15,4 +20,5 @@
     .form-text {
       color: #6c757d;
     }
+
   }
