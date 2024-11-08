@@ -1,13 +1,23 @@
 .form-group {
     margin-bottom: 15px;
-    display: flex;
   
+    .container{
+      display: flex;
+    }
+
+    .label-container {
+      width: 20%;
+    }
+
+    label {
+    }
+
     .field-mark {
       color: red;
     }
 
     .form-control {
-      width: 100%;
+      width: 10%;
       padding: 8px;
       border: 1px solid #ccc;
       border-radius: 4px;

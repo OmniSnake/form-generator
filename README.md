@@ -1,27 +1,41 @@
-# FormGenerator
+# Form Generator
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.1.1.
+## Описание
 
-## Development server
+Данный проект представляет собой генератор форм на Angular, где каждый элемент формы является отдельным компонентом. Форма генерируется на основе JSON-конфигурации и поддерживает редактирование данных.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Структура проекта
 
-## Code scaffolding
+- **components/**: Содержит компоненты формы (`testInput`, `testSelect`, `testNumber`, `testCheckbox`).
+- **services/**: Сервис `FormConfigService` для получения конфигурации формы.
+- **app.component.ts**: Основной компонент приложения, отвечающий за сборку и обработку формы.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Установка и запуск
 
-## Build
+1. Клонируйте репозиторий:
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+   ```bash
+   git clone <URL репозитория>
 
-## Running unit tests
+   2.	Перейдите в директорию проекта:
+   cd form-generator
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+   	3.	Установите зависимости:
+    npm install
 
-## Running end-to-end tests
+    4.	Запустите приложение:
+    ng serve
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+    Приложение будет доступно по адресу http://localhost:4200/
 
-## Further help
+    Использование
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+	•	Форма автоматически генерируется на основе конфигурации.
+	•	Заполните поля и нажмите “Отправить”.
+	•	Данные формы выведутся в консоль.
+
+    Примечания
+
+	•	Валидация полей реализована для обязательных полей.
+	•	Модификаторы в конфигурации позволяют изменять отображение компонентов (например, исключать опции из testSelect).
+	•	Для демонстрации функционала редактирования используется статическая модель testFormData.

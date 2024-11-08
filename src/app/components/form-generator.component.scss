@@ -1,0 +1,17 @@
+.input-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  
+    app-test-input {
+      flex: 1;
+    }
+  
+    button {
+      margin-left: 10px;
+    }
+  }
+  
+  .btn-primary {
+    margin-top: 10px;
+  }

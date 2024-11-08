@@ -16,4 +16,5 @@ export class TestSelectComponent {
   @Input() description?: string;
   @Input() required?: boolean = false;
   @Input() control!: FormControl;
+  @Input() modifiers?: any;
 }

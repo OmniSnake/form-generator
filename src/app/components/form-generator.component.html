@@ -1,0 +1,76 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <ng-container *ngFor="let field of formConfig">
+      <ng-container [ngSwitch]="field.type">
+        
+        <ng-container *ngSwitchCase="'input'">
+            <ng-container *ngIf="field.addable; else singleInput">
+              <div [formArrayName]="field.fieldName">
+                <div
+                  *ngFor="let control of getFormArray(field.fieldName)?.controls; let i = index"
+                  class="input-group"
+                >
+                  <app-test-input
+                    [label]="i === 0 ? field.label : null"
+                    [required]="field.required ?? false"
+                    [control]="getFormControlFromArray(field.fieldName, i)!"
+                  >
+                  </app-test-input>
+                  <button
+                    *ngIf="i > 0"
+                    type="button"
+                    (click)="removeField(field.fieldName, i)"
+                    class="btn btn-danger"
+                    >Удалить</button>
+                </div>
+                <button
+                  type="button"
+                  (click)="addField(field.fieldName, field.maxLength)"
+                  [disabled]="
+                    field.maxLength !== undefined &&
+                    (getFormArray(field.fieldName)?.length || 0) >= field.maxLength
+                  "
+                  class="btn btn-primary"
+                >
+                  Добавить поле
+                </button>
+              </div>
+            </ng-container>
+            <ng-template #singleInput>
+              <app-test-input
+                [label]="field.label"
+                [required]="field.required ?? false"
+                [control]="getFormControl(field.fieldName)!"
+              >
+              </app-test-input>
+            </ng-template>
+          </ng-container>
+  
+        <app-test-select
+          *ngSwitchCase="'select'"
+          [label]="field.label"
+          [required]="field.required"
+          [choices]="applyModifiers(field.choices ?? [], field.modifiers)"
+          [control]="getFormControl(field.fieldName)!">
+        </app-test-select>
+  
+        <app-test-number
+          *ngSwitchCase="'number'"
+          [label]="field.label"
+          [description]="field.description"
+          [required]="field.required"
+          [control]="getFormControl(field.fieldName)!">
+        </app-test-number>
+  
+        <app-test-checkbox
+          *ngSwitchCase="'checkbox'"
+          [label]="field.label"
+          [required]="field.required ?? false"
+          [options]="field.options ?? []"
+          [control]="getFormArray(field.fieldName)!"
+          [selectAll]="field.selectAll ?? false">
+        </app-test-checkbox>
+  
+      </ng-container>
+    </ng-container>
+    <button type="submit" [disabled]="form.invalid">Отправить</button>
+  </form>

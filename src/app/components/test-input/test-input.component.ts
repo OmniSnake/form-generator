@@ -12,7 +12,7 @@ import { ReactiveFormsModule, FormControl, FormArray, CheckboxRequiredValidator,
 })
 export class TestInputComponent {
 
-    @Input() label: string = '';          
+    @Input() label: string | null = '';          
     @Input() placeholder: string = '';
     @Input() description?: string;    
     @Input() required = false;

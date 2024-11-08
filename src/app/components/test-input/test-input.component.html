@@ -1,6 +1,13 @@
 <div class="form-group">
-    <label *ngIf="label">{{ label }}</label>
-    <span *ngIf="required" class="field-mark">*</span>
-    <input type="text" [formControl]="control" [placeholder]="placeholder" class="form-control" />
-    <small *ngIf="description" class="form-text text-muted">{{ description }}</small>
+  <ng-container *ngIf="label">
+    <div class="label-container">
+      <label>{{ label }}</label>
+      <span *ngIf="required" class="field-mark">*</span>
+    </div>
+  </ng-container>
+  <input type="text" [formControl]="control" [placeholder]="placeholder" class="form-control" />
+  <small *ngIf="description" class="form-text text-muted">{{ description }}</small>
+  <div *ngIf="control.invalid && (control.dirty || control.touched)" class="error-message">
+    <span *ngIf="control.errors?.['required']">Это поле обязательно для заполнения.</span>
   </div>
+</div>

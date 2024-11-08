@@ -16,22 +16,47 @@ export class TestCheckboxComponent {
   @Input() required?: boolean = false;
   @Input() options: string[] = [];
   @Input() control!: FormArray;
+  @Input() selectAll: boolean = false;
 
-// Метод для проверки, выбран ли конкретный вариант
 public isOptionSelected(option: string): boolean {
   return this.control?.value.includes(option) ?? false;
 }
 
-// Метод для обработки изменений в чекбоксах
 public onCheckboxChange(option: string, event: Event): void {
   const checkbox = event.target as HTMLInputElement;
-  if (checkbox.checked) {
-    this.control.push(new FormControl(option));
+  if (option === 'selectAll') {
+    this.onSelectAllChange(checkbox.checked);
   } else {
-    const index = this.control.controls.findIndex(control => control.value === option);
-    if (index !== -1) {
-      this.control.removeAt(index);
+    if (checkbox.checked) {
+      this.control.push(new FormControl(option));
+    } else {
+      const index = this.control.controls.findIndex(control => control.value === option);
+      if (index !== -1) {
+        this.control.removeAt(index);
+      }
     }
+    this.updateSelectAllState();
   }
 }
+
+private updateSelectAllState(): void {
+  const selectAllCheckbox = document.getElementById(`checkbox-${this.label}-selectAll`) as HTMLInputElement;
+  if (selectAllCheckbox) {
+    selectAllCheckbox.checked = this.isAllSelected();
+  }
+}
+
+private onSelectAllChange(isChecked: boolean): void {
+  this.control.clear();
+  if (isChecked) {
+    this.options.forEach(option => {
+      this.control.push(new FormControl(option));
+    });
+  }
+}
+
+public isAllSelected(): boolean {
+  return this.options.every(option => this.control.value.includes(option));
+}
+
 }

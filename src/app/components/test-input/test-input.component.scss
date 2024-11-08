@@ -1,24 +1,31 @@
 .form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+
+  .label-container {
     display: flex;
-    margin-bottom: 15px;
-  
+    align-items: center;
+    margin-bottom: 5px;
+
     label {
       font-weight: bold;
     }
 
     .field-mark {
       color: red;
+      margin-left: 5px;
     }
-  
-    .form-control {
-      width: 100%;
-      padding: 8px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
-  
-    .form-text {
-      color: #6c757d;
-    }
-
   }
+
+  .form-control {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+  .error-message {
+    color: red;
+    font-size: 12px;
+  }
+}
