@@ -1,22 +1,81 @@
-.form-check {
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+
+  .input-row {
     display: flex;
-    margin-bottom: 15px;
-    
+    align-items: top;
+
     .label-container {
-      width: 20%;
-    }
-    label {
+      display: flex;
+      margin-bottom: 5px;
+      min-width: 140px;
+
+      label {
+        font-weight: normal;
+      }
+
+      .field-mark {
+        color: red;
+        margin-left: 5px;
+      }
     }
 
-    .field-mark {
-      color: red;
-    }
+    .checkbox-group {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 5px 20px;
+      align-items: start;
 
-    .form-check-input {
-      margin-right: 10px;
-    }
+      .checkbox-item {
+        display: flex;
+        align-items: center;
+
+        .form-check-input {
+          margin-right: 5px;
+          appearance: none;
+          width: 20px;
+          height: 20px;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          position: relative;
+          cursor: pointer;
+        }
   
-    .form-check-label {
-      display: inline-block;
+        .form-check-input:checked {
+          background-color: #FFE783;
+          border-color: #FFE783;
+        }
+  
+        .form-check-input:checked::before {
+          content: '✔️';
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          font-size: 12px;
+          color: black;
+        }
+
+        .form-check-label {
+          margin-right: 20px;
+        }
+      }
+
+      .select-all {
+        .form-check-label {
+          font-weight: bold;
+        }
+      }
+
+      .end-of-first-column {
+        grid-column: 1;
+      }
+
+      .end-of-second-column {
+        grid-column: 2;
+      }
     }
   }
+}

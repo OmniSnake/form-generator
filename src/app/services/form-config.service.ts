@@ -13,7 +13,8 @@ export class FormConfigService {
         fieldName: 'name',
         label: 'Имя',
         description: 'Введите ваше полное имя',
-        required: true
+        required: true,
+        placeholder: 'Полное имя',
       },
       {
         type: 'input',
@@ -27,6 +28,7 @@ export class FormConfigService {
       {
         type: 'select',
         fieldName: 'country',
+        description: 'Выберите вашу страну проживания',
         label: 'Страна',
         choices: ['Россия', 'США', 'Китай', 'Германия', 'Франция', 'Япония', 'Канада', 'Австралия', 'Бразилия', 'Индия', 'Испания', 'Италия'],
         required: false,
@@ -46,8 +48,8 @@ export class FormConfigService {
         fieldName: 'hobbies',
         label: 'Хобби',
         required: false,
-        options: ['Чтение', 'Путешествия', 'Спорт', 'Музыка', 'Рисование', 'Кулинария', 'Фотография', 'Плавание', 'Танцы', 'Видеоигры', 'Программирование', 'Волонтерство'],
-        selectAll: true
+        options: ['Путешествия', 'Спорт', 'Музыка', 'Рисование', 'Кулинария', 'Фотография', 'Плавание', 'Танцы', 'Видеоигры', 'Программирование', 'Волонтерство'],
+        selectAll: true,
       },
       {
         type: 'checkbox',

@@ -3,27 +3,42 @@
   flex-direction: column;
   margin-bottom: 15px;
 
-  .label-container {
+  .input-row {
     display: flex;
     align-items: center;
-    margin-bottom: 5px;
 
-    label {
-      font-weight: bold;
+    .label-container {
+      display: flex;
+      align-items: center;
+      min-width: 140px;
+
+      label {
+        font-weight: normal;
+      }
+
+      .field-mark {
+        color: red;
+        margin-left: 5px;
+      }
     }
 
-    .field-mark {
-      color: red;
-      margin-left: 5px;
+    .form-control {
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+
+      &::placeholder {
+        color: #aaa;
+      }
     }
   }
 
-  .form-control {
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+  .description-text {
+    margin-left: 140px;
+    margin-top: 5px;
+    font-size: 12px;
+    color: #666;
   }
-
   .error-message {
     color: red;
     font-size: 12px;

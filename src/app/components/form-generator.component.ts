@@ -127,6 +127,11 @@ export class FormGeneratorComponent implements OnInit {
     });
   }
 
+  public getFormArrayLength(controlName: string): number {
+    const formArray = this.getFormArray(controlName);
+    return formArray ? formArray.length : 0;
+  }
+
   public onSubmit(): void {
     if (this.form.valid) {
       const testForm: TestForm = this.buildTestForm();

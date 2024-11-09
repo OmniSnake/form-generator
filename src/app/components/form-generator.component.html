@@ -4,35 +4,33 @@
         
         <ng-container *ngSwitchCase="'input'">
             <ng-container *ngIf="field.addable; else singleInput">
-              <div [formArrayName]="field.fieldName">
+              <div [formArrayName]="field.fieldName" class="container-input">
                 <div
                   *ngFor="let control of getFormArray(field.fieldName)?.controls; let i = index"
                   class="input-group"
+                  [ngStyle]="{ 'margin-left': (i > 0) ? '140px' : '0' }"
                 >
-                  <app-test-input
-                    [label]="i === 0 ? field.label : null"
-                    [required]="field.required ?? false"
-                    [control]="getFormControlFromArray(field.fieldName, i)!"
-                  >
-                  </app-test-input>
-                  <button
-                    *ngIf="i > 0"
-                    type="button"
-                    (click)="removeField(field.fieldName, i)"
-                    class="btn btn-danger"
-                    >Удалить</button>
-                </div>
+                <app-test-input
+                  [label]="i === 0 ? field.label : null"
+                  [required]="field.required ?? false"
+                  [control]="getFormControlFromArray(field.fieldName, i)!"
+                >
+                </app-test-input>
                 <button
-                  type="button"
+                  *ngIf="i > 0"
+                  (click)="removeField(field.fieldName, i)"
+                  class="delete-btn"
+                ></button>
+                <div 
+                  *ngIf="getFormArray(field.fieldName)?.controls && (i+1 === getFormArray(field.fieldName)?.controls?.length)"
+                  class="add-field-btn"
+                  [ngStyle]="{ 'color': (field.maxLength && i+1 < field.maxLength) ? 'black' : 'gray' }"
                   (click)="addField(field.fieldName, field.maxLength)"
-                  [disabled]="
-                    field.maxLength !== undefined &&
-                    (getFormArray(field.fieldName)?.length || 0) >= field.maxLength
-                  "
-                  class="btn btn-primary"
-                >
-                  Добавить поле
-                </button>
+                  >
+                  <span class="icon"></span>
+                  <span class="text">Добавить еще</span>
+                </div>
+                </div>
               </div>
             </ng-container>
             <ng-template #singleInput>
@@ -72,5 +70,5 @@
   
       </ng-container>
     </ng-container>
-    <button type="submit" [disabled]="form.invalid">Отправить</button>
-  </form>
+    <button type="submit" [disabled]="form.invalid" class="submit-btn">Отправить</button>
+</form>

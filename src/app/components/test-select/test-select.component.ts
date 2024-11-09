@@ -17,4 +17,18 @@ export class TestSelectComponent {
   @Input() required?: boolean = false;
   @Input() control!: FormControl;
   @Input() modifiers?: any;
+
+  public selectedValue: string | null = null;
+  public isDropdownOpen: boolean = false;
+  public hoveredItem: string | null = null;
+
+  public toggleDropdown(): void {
+    this.isDropdownOpen = !this.isDropdownOpen;
+  }
+
+  public selectChoice(choice: string): void {
+    this.selectedValue = choice;
+    this.control.setValue(choice);
+    this.isDropdownOpen = false;
+  }
 }

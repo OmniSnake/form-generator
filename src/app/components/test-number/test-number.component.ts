@@ -16,4 +16,14 @@ export class TestNumberComponent {
   @Input() description?: string;
   @Input() required?: boolean = false;
   @Input() control!: FormControl;
+
+  public increment(): void {
+    const currentValue = this.control.value || 0;
+    this.control.setValue(currentValue + 1);
+  }
+
+  public decrement(): void {
+    const currentValue = this.control.value || 0;
+    this.control.setValue(currentValue - 1);
+  }
 }

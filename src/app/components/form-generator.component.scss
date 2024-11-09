@@ -1,17 +1,127 @@
-.input-group {
+form {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .input-group {
     display: flex;
     align-items: center;
-    margin-bottom: 10px;
+  }
+
+  .delete-btn {
+    min-width: 28px;
+    height: 28px;
+    background-color: hsl(0, 97%, 65%);
+    border: 1px solid hsl(0, 97%, 65%);
+    border-radius: 50%;
+    position: relative;
+    cursor: pointer;
+    margin-left: 10px;
+    margin-bottom: 15px;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: #d32f2f;
+    }
+
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 16px;
+      height: 1px;
+      background-color: white;
+      transform-origin: center;
+    }
+
+    &::before {
+      transform: translate(-50%, -50%) rotate(45deg);
+    }
+
+    &::after {
+      transform: translate(-50%, -50%) rotate(-45deg);
+    }
+  }
+
+  .add-field-btn {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+    margin-top: 0px;
+    margin-left: 5px;
+    color: black;
+    font-size: 16px;
+    font-weight: normal;
   
-    app-test-input {
-      flex: 1;
+    .icon {
+        position: relative;
+        min-width: 24px;
+        height: 24px;
+        max-height: 24px;
+        border: 1px solid black;
+        border-radius: 50%;
+        margin-right: 8px;
+        margin-bottom: 15px;
+        transition: background-color 0.3s ease;
+    
+        &::before,
+        &::after {
+          content: '';
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          width: 16px;
+          height: 1px;
+          background-color: black;
+          transform-origin: center;
+        }
+    
+        &::before {
+          transform: translate(-50%, -50%) rotate(0deg);
+        }
+    
+        &::after {
+          transform: translate(-50%, -50%) rotate(90deg); 
+        }
+      }
+  
+    .text {
+      font-size: 16px;
+      margin-bottom: 14px;
+    }
+
+    &:hover .icon {
+        background-color: #f0f0f0;
+      }
     }
   
-    button {
-      margin-left: 10px;
+  .submit-btn {
+    display: inline-block;
+    width: 25%;
+    min-width: 40px;
+    padding: 10px;
+    margin-left: 25%;
+    margin-top: 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: normal;
+    cursor: pointer;
+    background-color: #FFE783;
+    ;
+    color: #000000;
+    
+    &:hover:not(:disabled) {
+    color: #555252;
+    }
+  
+    &:disabled {
+      background-color: #f9e79f; 
+      color: #9c8b3f;
+      cursor: not-allowed;
     }
   }
   
-  .btn-primary {
-    margin-top: 10px;
-  }

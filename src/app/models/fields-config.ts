@@ -4,6 +4,7 @@ export interface FieldsConfig {
     label: string;
     description?: string;
     required?: boolean;
+    placeholder?: string;
     choices?: string[];
     addable?: boolean;
     maxLength?: number;
