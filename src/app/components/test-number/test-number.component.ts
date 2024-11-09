@@ -11,11 +11,11 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TestNumberComponent {
-  @Input() label: string = '';
-  @Input() placeholder: string = '';
-  @Input() description?: string;
-  @Input() required?: boolean = false;
-  @Input() control!: FormControl;
+  @Input() public label: string = '';
+  @Input() public placeholder: string = '';
+  @Input() public description?: string;
+  @Input() public required: boolean = false;
+  @Input() public control!: FormControl;
 
   public increment(): void {
     const currentValue = this.control.value || 0;

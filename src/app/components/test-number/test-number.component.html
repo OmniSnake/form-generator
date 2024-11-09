@@ -1,16 +1,19 @@
-<div class="form-group">
-  <div class="input-row">
-    <div class="label-container">
+<div class="test-number__form-group">
+  <div class="test-number__input-row">
+    <div class="test-number__label-container">
       <label *ngIf="label">{{ label }}</label>
-      <span *ngIf="required" class="field-mark">*</span>
+      <span *ngIf="required" class="test-number__field-mark">*</span>
     </div>
-    <div class="input-container">
-      <input type="number" [formControl]="control" [placeholder]="placeholder" class="form-control" />
-      <div class="number-controls">
-        <button type="button" (click)="increment()" class="control-button">▲</button>
-        <button type="button" (click)="decrement()" class="control-button">▼</button>
+    <div class="test-number__input-container">
+      <input type="number" [formControl]="control" [placeholder]="placeholder" class="test-number__form-control" />
+      <div class="test-number__number-controls">
+        <button type="button" (click)="increment()" class="test-number__control-button">▲</button>
+        <button type="button" (click)="decrement()" class="test-number__control-button">▼</button>
       </div>
     </div>
   </div>
-  <small *ngIf="description" class="description-text">{{ description }}</small>
+  <small *ngIf="description" class="test-number__description-text">{{ description }}</small>
+  <div *ngIf="control.invalid && (control.dirty || control.touched)" class="test-number__error-message">
+    <span *ngIf="control.errors?.['required']">Это поле обязательно для заполнения.</span>
+  </div>
 </div>

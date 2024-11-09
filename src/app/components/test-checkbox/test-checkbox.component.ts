@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { FormArray, ReactiveFormsModule, FormControl } from '@angular/forms';
 
 @Component({
@@ -10,15 +10,15 @@ import { FormArray, ReactiveFormsModule, FormControl } from '@angular/forms';
   styleUrls: ['./test-checkbox.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TestCheckboxComponent {
-  @Input() label: string = '';
-  @Input() description?: string;
-  @Input() required?: boolean = false;
-  @Input() options: string[] = [];
-  @Input() control!: FormArray;
-  @Input() selectAll: boolean = false;
+export class TestCheckboxComponent implements OnInit {
+  @Input() public label: string = '';
+  @Input() public description?: string;
+  @Input() public required: boolean = false;
+  @Input() public options: string[] = [];
+  @Input() public control!: FormArray;
+  @Input() public selectAll: boolean = false;
 
-  public isEven: boolean = true; 
+  public isEven: boolean = true;
 
   public ngOnInit(): void {
     this.isEven = this.options.length % 2 === 0;
@@ -57,12 +57,11 @@ export class TestCheckboxComponent {
       });
     }
   }
-  
+
   private updateSelectAllState(): void {
     const selectAllCheckbox = document.getElementById(`checkbox-${this.label}-selectAll`) as HTMLInputElement;
     if (selectAllCheckbox) {
       selectAllCheckbox.checked = this.isAllSelected();
     }
   }
-
 }

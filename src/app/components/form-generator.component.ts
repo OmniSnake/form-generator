@@ -1,12 +1,12 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl, FormArray, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { FieldsConfig } from '../models/fields-config';
-import { TestCheckboxComponent } from "../components/test-checkbox/test-checkbox.component";
-import { TestInputComponent } from "../components/test-input/test-input.component";
-import { TestNumberComponent } from "../components/test-number/test-number.component";
-import { TestSelectComponent } from "../components/test-select/test-select.component";
-import { TestForm } from '../models/test-form.model'
+import { TestCheckboxComponent } from './test-checkbox/test-checkbox.component';
+import { TestInputComponent } from './test-input/test-input.component';
+import { TestNumberComponent } from './test-number/test-number.component';
+import { TestSelectComponent } from './test-select/test-select.component';
+import { TestForm } from '../models/test-form.model';
 import { ApiService } from '../services/api.service';
 
 @Component({
@@ -21,22 +21,24 @@ import { ApiService } from '../services/api.service';
     TestSelectComponent,
   ],
   templateUrl: './form-generator.component.html',
-  styleUrls: ['./form-generator.component.scss']
+  styleUrls: ['./form-generator.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FormGeneratorComponent implements OnInit {
 
-  @Input() formConfig!: FieldsConfig[];
+  @Input() public formConfig!: FieldsConfig[];
 
   public form: FormGroup;
 
   constructor(
     private fb: FormBuilder,
     private apiService: ApiService,
+    private cdr: ChangeDetectorRef,
   ) {
     this.form = this.fb.group({});
   }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.buildForm();
     this.loadFormData();
   }
@@ -106,17 +108,17 @@ export class FormGeneratorComponent implements OnInit {
     this.formConfig.forEach((field: FieldsConfig) => {
       const fieldName = field.fieldName;
       const fieldValue = formData[fieldName];
-  
+
       const control = this.form.get(fieldName);
-  
+
       if (fieldValue !== undefined && fieldValue !== null) {
         if (control instanceof FormControl) {
           control.patchValue(fieldValue);
         } else if (control instanceof FormArray) {
           control.clear();
-  
+
           const valuesArray = Array.isArray(fieldValue) ? fieldValue : [fieldValue];
-  
+
           valuesArray.forEach((value: any) => {
             control.push(new FormControl(value));
           });
@@ -152,16 +154,23 @@ export class FormGeneratorComponent implements OnInit {
     }
   }
 
-  public applyModifiers(choices: string[], modifiers: any): string[] {
-    if (modifiers) {
-      if (modifiers.exclude) {
-        choices = choices.filter(choice => !modifiers.exclude.includes(choice));
+  public applyModifiers(field: FieldsConfig): { choices: string[], selected?: string } {
+    let choices = field.choices ?? [];
+    let selected: string | undefined;
+
+    if (field.modifiers) {
+      if (field.modifiers.exclude) {
+        choices = choices.filter(choice => !field.modifiers.exclude.includes(choice));
       }
-      if (modifiers.include) {
-        choices = choices.concat(modifiers.include);
+      if (field.modifiers.include) {
+        choices = choices.concat(field.modifiers.include);
+      }
+      if (field.modifiers.selected) {
+        selected = field.modifiers.selected;
       }
     }
-    return choices;
+
+    return { choices, selected };
   }
 
   private buildTestForm(): TestForm {
@@ -179,6 +188,7 @@ export class FormGeneratorComponent implements OnInit {
     this.apiService.getFormData().subscribe({
       next: (data) => {
         this.patchFormData(data);
+        this.cdr.markForCheck();
       },
       error: (error) => {
         console.error('Ошибка при получении данных формы:', error);

@@ -22,6 +22,7 @@ export class FormConfigService {
         label: 'ВУЗ',
         description: 'Введите ваш ВУЗ',
         required: true,
+        placeholder: 'Например, ВолгГУ',
         addable: true,
         maxLength: 5
       },
@@ -33,7 +34,21 @@ export class FormConfigService {
         choices: ['Россия', 'США', 'Китай', 'Германия', 'Франция', 'Япония', 'Канада', 'Австралия', 'Бразилия', 'Индия', 'Испания', 'Италия'],
         required: false,
         modifiers: {
-          exclude: ['США']
+          exclude: ['США', 'Канада'],
+          selected: 'Германия'
+        }
+      },
+
+    {
+        type: 'select',
+        fieldName: 'maritalStatus',
+        description: 'Выберите вашу страну проживания',
+        label: 'Семейное положение',
+        choices: ['Не женат / не замужем', 'Женат / замужем', 'В активном поиске', 'Всё сложно'],
+        required: false,
+        modifiers: {
+          include: ['Ищу себя'],
+          selected: 'В активном поиске'
         }
       },
       {
