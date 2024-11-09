@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormConfigService } from './services/form-config.service';
 import { FieldsConfig } from './models/fields-config';
-import { FormGeneratorComponent } from './components/form-generator.component';
+import { FormGeneratorComponent } from './components/form-generator/form-generator.component';
 
 @Component({
   selector: 'app-root',

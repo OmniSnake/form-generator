@@ -1,13 +1,13 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl, FormArray, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { FieldsConfig } from '../models/fields-config';
-import { TestCheckboxComponent } from './test-checkbox/test-checkbox.component';
-import { TestInputComponent } from './test-input/test-input.component';
-import { TestNumberComponent } from './test-number/test-number.component';
-import { TestSelectComponent } from './test-select/test-select.component';
-import { TestForm } from '../models/test-form.model';
-import { ApiService } from '../services/api.service';
+import { FieldsConfig } from '../../models/fields-config';
+import { TestCheckboxComponent } from '../test-checkbox/test-checkbox.component';
+import { TestInputComponent } from '../test-input/test-input.component';
+import { TestNumberComponent } from '../test-number/test-number.component';
+import { TestSelectComponent } from '../test-select/test-select.component';
+import { TestForm } from '../../models/test-form.model';
+import { ApiService } from '../../services/api.service';
 
 @Component({
   selector: 'app-form-generator',
